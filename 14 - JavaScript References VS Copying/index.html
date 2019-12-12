@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+    let one = 1;
+    let one1 = one;
+    console.log(one, one1);
+    one = 2;
+    console.log(one, one1);
+
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+
+    // You might think we can just do something like this:
+    const team = players;
+    console.log(players);
+    console.log(team);
+    team[3] = 'Snajay';
+    console.log(players);
+
+    // however what happens when we update that array?
+
+    // now here is the problem!
+
+    // oh no - we have edited the original array too!
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // So, how do we fix this? We take a copy instead!
+    const team1 = players.slice();
+    console.log(team1);
+    players[1] = 'vivek';
+
+    const team2 = [...players];
+    const team3 = Array.from(players);
+    console.log(team3);
+
+    // one way
+
+    // or create a new array and concat the old one in
+    const team4 = [].concat(players);
+    console.log(team4);
+
+    // or use the new ES6 Spread
+
+    // now when we update it, the original one isn't changed
+
+    // The same thing goes for objects, let's say we have a person object
+
+    // with Objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    // and think we make a copy:
+
+    const cap = person;
+    console.log(cap);
+    cap.age = 100;
+    console.log(cap);
+
+    // how do we take a copy instead?
+    const cap1 = Object.assign({}, person, {sex: 'male'});
+    console.log(cap1);
+
+    // We will hopefully soon see the object ...spread
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+  </script>
+
+</body>
+</html>
